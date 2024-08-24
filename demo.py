@@ -2,6 +2,15 @@ import math
 a = 1
 b = 2
 c = 3
-c = math.sqrt(a**2 + b**2)
 
-print(c)
+tinhTong = a+b+c; tinhHieu = a - b-c
+
+print(tinhTong, tinhHieu)
+
+
+aa = 1
+bb = 2
+cc = 3
+cc = math.sqrt(aa**2 + bb**2)
+
+print(cc)
