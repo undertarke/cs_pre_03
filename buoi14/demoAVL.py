@@ -107,3 +107,5 @@ def duyet_tree(root):
     }
 
 print(duyet_tree(avlTree))
+
+# O(logN)
