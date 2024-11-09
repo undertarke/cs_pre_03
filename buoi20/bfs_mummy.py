@@ -68,7 +68,7 @@ class Graph:
 
 graph = Graph(6,6)
 graph.addRectangleEdges()
-print(graph.adjList)
-# listPath = graph.findListPath(9,1)
+
+# listPath = graph.findListPath(35,6  )
 
 # print(listPath)
