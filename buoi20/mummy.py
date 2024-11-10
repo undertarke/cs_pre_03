@@ -43,13 +43,15 @@ mummyDown = pygame.image.load("./image/mummy/reddown.png")
 mummyLeft = pygame.image.load("./image/mummy/redleft.png")
 mummyRight = pygame.image.load("./image/mummy/redright.png")
 
+wallX, wallY, wallW, wallH = 400, 200, 10, 100
+
 
 class Player:
     mummyGo = 0
 
     def __init__(self):
-        self.x = 0
-        self.y = 0
+        self.x = 500
+        self.y = 200
         self.surface = pygame.Surface((100, 100), pygame.SRCALPHA)
         self.surface.blit(playerDown, (20, 20), (0, 0, 60, 60))
 
@@ -122,8 +124,8 @@ class Player:
 
 class Mummy:
     def __init__(self):
-        self.x = 500
-        self.y = 500
+        self.x = 0
+        self.y = 200
         self.surface = pygame.Surface((100, 100), pygame.SRCALPHA)
         self.surface.blit(mummyDown, (20, 20), (0, 0, 60, 60))
         self.timeSkip = 0
@@ -167,6 +169,7 @@ class Mummy:
         else:
             self.go = 0
 
+           
             Player.mummyGo += 1
             if Player.mummyGo == 3:
                 Player.mummyGo = 0
@@ -213,7 +216,29 @@ class Mummy:
             keyMummy = getKey(self.x, self.y)
             listFind = grap.findListPath(keyMummy, keyPlayer)
 
-            self.keyRun = getLocate(listFind[0])
+            keyWall = getKey(wallX, wallY)  # 16
+
+            # wall dọc
+            if keyMummy == keyWall:
+                
+                if playerY == wallY:
+                    Player.mummyGo = 0
+                else:
+                    for item in listFind:
+                        if item != keyWall - 1: # chặn xuyên tường
+                            self.keyRun = getLocate(item)
+
+            elif keyMummy == keyWall - 1: # 15
+                if playerY == wallY:
+                    Player.mummyGo = 0
+                else:
+                    for item in listFind:
+                        if item != keyWall: # chặn xuyên tường
+                            self.keyRun = getLocate(item)
+            else:
+
+            # xử lý tt đi
+                self.keyRun = getLocate(listFind[0])
 
 
 player = Player()
@@ -239,6 +264,10 @@ while True:
                 right = True
 
     DISPLAYSURF.blit(surfaceMap, (0, 0))
+    pygame.draw.rect(DISPLAYSURF, (0, 0, 255), (wallX, wallY, wallW, wallH))
+
+    pygame.draw.rect(DISPLAYSURF, (0, 0, 255), (100, 200, 100, 10))
+
     player.draw()
     player.update(up, down, left, right)
     mummy.draw()

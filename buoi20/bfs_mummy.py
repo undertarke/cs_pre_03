@@ -1,6 +1,7 @@
 # định nghĩa graph và  thuật toán bfs cho xác ướp
 from collections import deque
 
+
 class Graph:
     def __init__(self, numRows, numCols):
         self.numRows = numRows
@@ -29,16 +30,13 @@ class Graph:
                 if row < self.numRows - 1:
                     self.addEdge(current, current + self.numCols)
 
-
-
     def findListPath(self, start, end):
 
         queue = deque([[start]])
         visited = set([start])
         minLength = None
 
-        resultPaths = [] 
-
+        resultPaths = []
 
         while queue:
             path = queue.popleft()
@@ -56,19 +54,19 @@ class Graph:
                 newPath.append(neighbour)
 
                 if neighbour == end:
-                    resultPaths.append(newPath[1]) # for game
+                    resultPaths.append(newPath[1])  # for game
                     # resultPaths.append(newPath)
                     minLength = len(newPath)
                 else:
                     queue.append(newPath)
                     visited.add(neighbour)
 
+        return resultPaths  # [ [0,2,4,5], [0,2,3,6], .... ]
 
-        return resultPaths # [ [0,2,4,5], [0,2,3,6], .... ]
 
-graph = Graph(6,6)
+graph = Graph(6, 6)
 graph.addRectangleEdges()
 
-# listPath = graph.findListPath(35,6  )
+# listPath = graph.findListPath(35, 6)
 
 # print(listPath)
