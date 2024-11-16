@@ -16,7 +16,7 @@ class Graph:
         else:
             self.edges[from_node] = [to_node]
 
-        self.distances[(from_node, to_node)] = distance
+        self.distances[(from_node, to_node)] = distance 
 
 
 def dijkstra(graph, start, end):
@@ -40,10 +40,12 @@ def dijkstra(graph, start, end):
 
             if edge not in visited or weight < visited[edge]:
 
-                visited[edge] = weight
+                visited[edge] = weight # { (A,B):2 , (B,E):7, ...., (E,F):9}
                 path[edge] = min_node
                 heapq.heappush(heap, (weight, edge))
 
+    #[F-E-B-A]
+    #[A-B-E-F]
     route = []
     
     while end != start:
@@ -55,7 +57,9 @@ def dijkstra(graph, start, end):
             print("Không có đường đi")
             return None
     route.append(start)
+
     route.reverse()
+
     return route, visited[route[-1]]
 
 
@@ -68,13 +72,19 @@ grap.add_node('E')
 grap.add_node('F')
 
 grap.add_edge('A', 'B', 2)
-grap.add_edge('A', 'C', 4)  
-grap.add_edge('B', 'D', 9)
-grap.add_edge('B', 'C', 1)
-grap.add_edge('D', 'F', 1)
-grap.add_edge('C', 'E', 3)
-grap.add_edge('E', 'D', 2)
-grap.add_edge('E', 'F', 5)
+grap.add_edge('A', 'C', 5)  
+
+grap.add_edge('B', 'C', 2)
+grap.add_edge('B', 'E', 5)
+
+grap.add_edge('C', 'D', 3)
+
+grap.add_edge('D', 'F', 4)
+grap.add_edge('D', 'E', 1)
+
+grap.add_edge('E', 'F', 2)
+
 
 routes, total = dijkstra(grap, 'A', 'F')
+
 print(f' {routes}: time={total}')
